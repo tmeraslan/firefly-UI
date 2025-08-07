@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from pages.sign_in_page import SignInPage
 email= "tmeraslan1@gmail.com"
-password= "7zWS7UCV9fcJb@k12"
+password= "r_ATzrCF9NFjMCF123"
 
 @pytest.fixture
 def driver():
@@ -18,7 +18,6 @@ def driver():
 def test_sign_in_flow(driver):
     page = SignInPage(driver)
     page.load()
-
     # בדיקת אלמנטים
     assert page.is_sign_in_text_present()
     assert page.is_sign_in_button_present()
