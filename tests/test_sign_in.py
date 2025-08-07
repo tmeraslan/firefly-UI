@@ -18,7 +18,7 @@ def driver():
 def test_sign_in_flow(driver):
     page = SignInPage(driver)
     page.load()
-    # בדיקת אלמנטים
+    # Element testing
     assert page.is_sign_in_text_present()
     assert page.is_sign_in_button_present()
     assert page.is_email_input_present()
@@ -26,10 +26,10 @@ def test_sign_in_flow(driver):
     assert page.is_remember_label_present()
     assert page.is_remember_checkbox_present()
 
-    # ביצוע התחברות
+    # Making a connection
     page.login(email, password, remember=True)
 
-    #בדיקת הצלחה
+    #Success check
     assert page.is_logged_in_successfully()
 
 

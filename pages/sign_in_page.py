@@ -54,7 +54,8 @@ class SignInPage:
                 checkbox.click()
         self.driver.find_element(*self.SIGN_IN_BUTTON).click()
 
-        return self  # מחזיר את אותו עמוד כדי לשמור על page chaining
+        return self  # Returns the same page to maintain page chaining.
+
 
     def is_logged_in_successfully(self):
 
@@ -64,7 +65,7 @@ class SignInPage:
             EC.visibility_of_element_located(self.FIREFLYIII_TOP_LEFT_BUTTON)
         )
 
-        # # Check user email top right
+        # Check user email top right
         email_elem = self.driver.find_element(
             By.XPATH, f"//*[contains(text(), '{self.expected_email}')]"
         )
