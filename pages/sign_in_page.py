@@ -77,9 +77,19 @@ class SignInPage:
             return False
         
         return True
-     
 
+    def sign_in_flow(self, email, password):
 
+        assert self.is_sign_in_text_present()
+        assert self.is_sign_in_button_present()
+        assert self.is_email_input_present()
+        assert self.is_password_input_present()
+        assert self.is_remember_label_present()
+        assert self.is_remember_checkbox_present()
 
- 
+        # Making a connection
+        self.login(email, password, remember=True)
 
+        #Success check
+        assert self.is_logged_in_successfully()
+        return True
