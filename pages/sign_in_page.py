@@ -3,9 +3,9 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from config import URL
 
 class SignInPage:
-    URL = "http://localhost:8080"
 
     SIGN_IN_TEXT = (By.XPATH, "//*[contains(text(), 'Sign in to start your session')]")
     SIGN_IN_BUTTON = (By.XPATH, "//button[contains(text(), 'Sign in')]")
@@ -22,7 +22,7 @@ class SignInPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.driver.implicitly_wait(2)
+        self.URL = URL
 
     def load(self):
         self.driver.get(self.URL)
@@ -46,6 +46,9 @@ class SignInPage:
         return len(self.driver.find_elements(*self.REMEMBER_CHECKBOX)) > 0
 
     def login(self, email, password, remember=False):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.EMAIL_INPUT)
+        )
         self.driver.find_element(*self.EMAIL_INPUT).send_keys(email)
         self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
         if remember:
