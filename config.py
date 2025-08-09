@@ -1,3 +1,5 @@
 URL = "http://localhost:8080"
 EMAIL = "tmeraslan1@gmail.com"
 PASSWORD = "r_ATzrCF9NFjMCF123"
+INVALID_EMAIL = "invalid@example.com"
+INVALID_PASSWORD = "wrongpassword"

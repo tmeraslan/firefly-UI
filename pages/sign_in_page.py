@@ -18,10 +18,11 @@ class SignInPage:
     FIREFLYIII_TOP_LEFT_BUTTON = (By.CLASS_NAME, "logo-lg")
     expected_email = "tmeraslan1@gmail.com"
     SIDE_BAR_BUTTON = (By.ID, "sidebar-toggle")
+    ALERT_INVALID_CREDENTIALS = (By.XPATH, "//div[contains(@class, 'alert-danger')]")
 
 
     def __init__(self, driver):
-        self.driver = driver
+        self.driver = driver            
         self.URL = URL
 
     def load(self):
@@ -96,3 +97,6 @@ class SignInPage:
         #Success check
         assert self.is_logged_in_successfully()
         return True
+
+    def is_invalid_credentials_alert_present(self):
+        return len(self.driver.find_elements(*self.ALERT_INVALID_CREDENTIALS)) > 0
