@@ -5,9 +5,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages.sign_in_page import SignInPage
 from pages.home_page import HomePage
 import time
+from config import EMAIL, PASSWORD
 
-email = "tmeraslan1@gmail.com"
-password = "r_ATzrCF9NFjMCF123"
 expected_date = "August 1st, 2025 - August 31st, 2025"
 
 @pytest.fixture
@@ -20,10 +19,10 @@ def driver():
 def test_create_new_asset_account(driver):
     sign_in = SignInPage(driver)
     sign_in.load()
-    sign_in.sign_in_flow(email, password)
+    sign_in.sign_in_flow(EMAIL, PASSWORD)
 
     home = HomePage(driver)
-    assert home.is_dashboard_loaded(email, expected_date)
+    assert home.is_dashboard_loaded(EMAIL, expected_date)
     home.go_to_asset_accounts()
     home.click_asset_accounts()
     home.click_create_new_asset_account()
