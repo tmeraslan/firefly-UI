@@ -14,21 +14,23 @@ import shutil
 @pytest.fixture
 def driver():
     options = Options()
-    # options.add_argument("--headless=new")  # or "--headless" if needed
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
+
     # צור תיקיית פרופיל זמנית ל-user data
     user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
     options.add_argument(f"--user-data-dir={user_data_dir}")
-    
+
     driver = webdriver.Chrome(options=options)
-    
+
     yield driver
-    
+
     driver.quit()
-    # מחיקת תיקיית הפרופיל הזמני אחרי הסיום
-    shutil.rmtree(user_data_dir)
+
+    # מחק את תיקיית הפרופיל אחרי סגירת הדרייבר
+    shutil.rmtree(user_data_dir, ignore_errors=True)
 
 def test_sign_in_flow(driver):
     page = SignInPage(driver)
