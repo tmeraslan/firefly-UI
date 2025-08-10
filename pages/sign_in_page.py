@@ -3,7 +3,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from config import URL
+# from config import URL
+from tests.firefly_credentials import get_firefly_credentials
 
 class SignInPage:
 
@@ -23,7 +24,7 @@ class SignInPage:
 
     def __init__(self, driver):
         self.driver = driver            
-        self.URL = URL
+        self.URL = get_firefly_credentials()["base_url"]
 
     def load(self):
         self.driver.get(self.URL)
