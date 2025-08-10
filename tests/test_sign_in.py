@@ -7,9 +7,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages.sign_in_page import SignInPage
 from config import EMAIL, PASSWORD
 
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
     yield driver
     driver.quit()

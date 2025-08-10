@@ -8,10 +8,10 @@ import time
 from config import EMAIL, PASSWORD
 
 expected_date = "August 1st, 2025 - August 31st, 2025"
-
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
     yield driver
     driver.quit()

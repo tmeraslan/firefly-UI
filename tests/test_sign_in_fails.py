@@ -8,10 +8,10 @@ from config import INVALID_EMAIL, INVALID_PASSWORD
 from config import EMAIL, PASSWORD
 
 
-
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver = webdriver.Chrome()
     driver.maximize_window()
     yield driver
     driver.quit()
