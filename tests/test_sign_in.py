@@ -6,15 +6,29 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from pages.sign_in_page import SignInPage
 from config import EMAIL, PASSWORD
+from selenium.webdriver.chrome.options import Options
+import tempfile
+import shutil
 
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
-    driver.maximize_window()
+    options = Options()
+    # options.add_argument("--headless=new")  # or "--headless" if needed
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    # צור תיקיית פרופיל זמנית ל-user data
+    user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
+    options.add_argument(f"--user-data-dir={user_data_dir}")
+    
+    driver = webdriver.Chrome(options=options)
+    
     yield driver
+    
     driver.quit()
+    # מחיקת תיקיית הפרופיל הזמני אחרי הסיום
+    shutil.rmtree(user_data_dir)
 
 def test_sign_in_flow(driver):
     page = SignInPage(driver)
