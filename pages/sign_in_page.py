@@ -100,4 +100,8 @@ class SignInPage:
         return True
 
     def is_invalid_credentials_alert_present(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.ALERT_INVALID_CREDENTIALS)
+        )
+
         return len(self.driver.find_elements(*self.ALERT_INVALID_CREDENTIALS)) > 0
