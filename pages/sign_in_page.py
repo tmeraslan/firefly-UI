@@ -3,8 +3,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-# from config import URL
 from tests.firefly_credentials import get_firefly_credentials
+from pages.home_page import HomePage
 
 class SignInPage:
 
@@ -16,9 +16,7 @@ class SignInPage:
     REMEMBER_CHECKBOX = (By.XPATH, "//input[@type='checkbox']")
     SUCCESS_TOAST = (By.ID, "toast-container")  # נניח שזו ההודעה שמופיעה
     USER_EMAIL_TOP_RIGHT = (By.XPATH, "//span[contains(@class, 'navbar-text') and contains(text(), '@')]")
-    FIREFLYIII_TOP_LEFT_BUTTON = (By.CLASS_NAME, "logo-lg")
     expected_email = "tmeraslan1@gmail.com"
-    SIDE_BAR_BUTTON = (By.ID, "sidebar-toggle")
     ALERT_INVALID_CREDENTIALS = (By.XPATH, "//div[contains(@class, 'alert-danger')]")
 
 
@@ -67,7 +65,7 @@ class SignInPage:
         
         # Wait for the FireflyIII button (top left)
         WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.FIREFLYIII_TOP_LEFT_BUTTON)
+            EC.visibility_of_element_located(HomePage.FIREFLYIII_TOP_LEFT_BUTTON)
         )
 
         # Check user email top right
@@ -78,7 +76,7 @@ class SignInPage:
         if not email_elem.is_displayed():
             return False
             
-        if len(self.driver.find_elements(*self.SIDE_BAR_BUTTON)) != 1:
+        if len(self.driver.find_elements(*HomePage.SIDE_BAR_BUTTON)) != 1:
             return False
         
         return True

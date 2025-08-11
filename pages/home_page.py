@@ -1,3 +1,4 @@
+# pages/sign_in_page.py
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -17,6 +18,8 @@ class HomePage:
     NAME_INPUT = (By.ID,"ffInput_name")
     STORE_NEW__ASSET_ACCOUNT_BUTTON = (By.XPATH, "//button[contains(text(),'Store new asset account')]")
     ALERT_SUCCESS = (By.CLASS_NAME, "alert-success")
+    FIREFLYIII_TOP_LEFT_BUTTON = (By.CLASS_NAME, "logo-lg")
+    SIDE_BAR_BUTTON = (By.ID, "sidebar-toggle")
 
     def __init__(self, driver):
         self.driver = driver
