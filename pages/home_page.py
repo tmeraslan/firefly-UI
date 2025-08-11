@@ -20,6 +20,12 @@ class HomePage:
     ALERT_SUCCESS = (By.CLASS_NAME, "alert-success")
     FIREFLYIII_TOP_LEFT_BUTTON = (By.CLASS_NAME, "logo-lg")
     SIDE_BAR_BUTTON = (By.ID, "sidebar-toggle")
+    EXPENSE_ACCOUNTS_BUTTON = ( By.XPATH, "//a[span[text()='Expense accounts']]")
+    CREATE_AN__EXPENSE_ACCOUNT_BUTTON = (By.CLASS_NAME, "btn-success")
+    STORE_NEW__EXPENSE_ACCOUNT_BUTTON = (By.XPATH, "//button[contains(text(),'Store new expense account')]")
+
+
+
 
     def __init__(self, driver):
         self.driver = driver
@@ -67,5 +73,26 @@ class HomePage:
         )
         return self.driver.find_element(*self.ALERT_SUCCESS).is_displayed()
 
-    def is_create_asset_new_account_successful(self):
+    def is_create_new_asset_account_successful(self):
+        return self.i_see_success_alert()
+
+    def click_expense_accounts(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.EXPENSE_ACCOUNTS_BUTTON)
+        )
+        self.driver.find_element(*self.EXPENSE_ACCOUNTS_BUTTON).click()
+
+    def click_create_new_expense_account(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.CREATE_AN__EXPENSE_ACCOUNT_BUTTON)
+        )
+        self.driver.find_element(*self.CREATE_AN__EXPENSE_ACCOUNT_BUTTON).click()
+
+    def click_store_new_expense_account(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.STORE_NEW__EXPENSE_ACCOUNT_BUTTON)
+        )
+        self.driver.find_element(*self.STORE_NEW__EXPENSE_ACCOUNT_BUTTON).click()
+
+    def is_create_new_expense_account_successful(self):
         return self.i_see_success_alert()

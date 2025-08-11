@@ -5,15 +5,17 @@ from pages.sign_in_page import SignInPage
 from pages.home_page import HomePage
 from config import EMAIL, PASSWORD
 from tests.test_setup import SETUPTEST
+import time
+
 
 
 expected_date = "August 1st, 2025 - August 31st, 2025"
 
 
-class TestCreateAssetAccount(SETUPTEST):
+class TestCreateExpenseAccount(SETUPTEST):
 
 
-    def test_create_new_asset_account(self):
+    def test_create_new_expense_account(self):
         sign_in = SignInPage(self.driver)
         sign_in.load()
         sign_in.sign_in_flow(EMAIL, PASSWORD)
@@ -21,12 +23,13 @@ class TestCreateAssetAccount(SETUPTEST):
         home = HomePage(self.driver)
         self.assertTrue(home.is_dashboard_loaded(EMAIL, expected_date))
         home.go_to_asset_accounts()
-        home.click_asset_accounts()
-        home.click_create_new_asset_account()
+        home.click_expense_accounts()
+        home.click_create_new_expense_account()
         home.insert_a_name_of_account()
-        home.click_store_new_asset_account()
-        self.assertTrue(home.is_create_new_asset_account_successful())
-        # self.assertTrue(home.i_see_success_alert())
+        home.click_store_new_expense_account()
+        self.assertTrue(home.is_create_new_expense_account_successful())
+        time.sleep(3)
+
 
 
 if __name__ == "__main__":
