@@ -4,14 +4,17 @@ import shutil
 import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import os
 
 class SETUPTEST(unittest.TestCase):
     def setUp(self):
         options = Options()
-        options.add_argument("--headless=new")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--disable-gpu")
+        if os.getenv("HEADLESS", "false").lower() == "true":
+            options.add_argument("--headless=new")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--disable-gpu")
+  
 
         # Create a temporary profile folder -user data
         self.user_data_dir = tempfile.mkdtemp(prefix="chrome-user-data-")
