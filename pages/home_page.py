@@ -24,7 +24,7 @@ class HomePage:
     CREATE_AN__EXPENSE_ACCOUNT_BUTTON = (By.CLASS_NAME, "btn-success")
     STORE_NEW__EXPENSE_ACCOUNT_BUTTON = (By.XPATH, "//button[contains(text(),'Store new expense account')]")
     SORTABLE_TABLE = (By.ID, "sortable-table")
-
+    expected_date = "August 1st, 2025 - August 31st, 2025"
 
 
     def __init__(self, driver):
@@ -32,13 +32,13 @@ class HomePage:
         self.last_created_account_name = None  # Store the last created account name
 
 
-    def is_dashboard_loaded(self, expected_email, expected_date):
+    def is_dashboard_loaded(self, expected_email):
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.DASHBOARD_SIDEBAR)
         )
         assert self.driver.find_element(*self.FIREFLYIII_LOGO).is_displayed()
         assert self.driver.find_element(By.XPATH, f"//*[contains(text(), '{expected_email}')]").is_displayed()
-        assert self.driver.find_element(By.XPATH, f"//*[contains(text(), '{expected_date}')]").is_displayed()
+        assert self.driver.find_element(By.XPATH, f"//*[contains(text(), '{self.expected_date}')]").is_displayed()
         return True
 
     def go_to_asset_accounts(self):
