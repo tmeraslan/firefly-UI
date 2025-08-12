@@ -19,8 +19,9 @@ class SETUPTEST(unittest.TestCase):
 
         # # It's important to add the window-size before creating the driver
         # options.add_argument("window-size=1920,1080")
-        self.driver.maximize_window()
+        
         self.driver = webdriver.Chrome(options=options)
+        self.driver.maximize_window()
 
     def tearDown(self):
         self.driver.quit()
