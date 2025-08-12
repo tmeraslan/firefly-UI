@@ -17,7 +17,6 @@ class TestCreateAssetAccount(SETUPTEST):
         sign_in = SignInPage(self.driver)
         sign_in.load()
         sign_in.sign_in_flow(EMAIL, PASSWORD)
-
         home = HomePage(self.driver)
         self.assertTrue(home.is_dashboard_loaded(EMAIL, expected_date))
         home.go_to_asset_accounts()
@@ -26,8 +25,6 @@ class TestCreateAssetAccount(SETUPTEST):
         home.insert_a_name_of_account()
         home.click_store_new_asset_account()
         self.assertTrue(home.is_create_new_asset_account_successful())
-        # self.assertTrue(home.is_asset_account_in_list())
-        # self.assertTrue(home.i_see_success_alert())
 
 
 if __name__ == "__main__":

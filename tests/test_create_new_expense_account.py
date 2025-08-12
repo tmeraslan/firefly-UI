@@ -28,7 +28,6 @@ class TestCreateExpenseAccount(SETUPTEST):
         home.insert_a_name_of_account()
         home.click_store_new_expense_account()
         self.assertTrue(home.is_create_new_expense_account_successful())
-        time.sleep(3)
 
 
 
