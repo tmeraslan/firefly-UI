@@ -23,12 +23,14 @@ class HomePage:
     EXPENSE_ACCOUNTS_BUTTON = ( By.XPATH, "//a[span[text()='Expense accounts']]")
     CREATE_AN__EXPENSE_ACCOUNT_BUTTON = (By.CLASS_NAME, "btn-success")
     STORE_NEW__EXPENSE_ACCOUNT_BUTTON = (By.XPATH, "//button[contains(text(),'Store new expense account')]")
-
+    SORTABLE_TABLE = (By.ID, "sortable-table")
 
 
 
     def __init__(self, driver):
         self.driver = driver
+        self.last_created_account_name = None  # Store the last created account name
+
 
     def is_dashboard_loaded(self, expected_email, expected_date):
         WebDriverWait(self.driver, 10).until(
@@ -60,6 +62,7 @@ class HomePage:
         )
         random_name = self.generate_random_name()+ "Account"
         self.driver.find_element(*self.NAME_INPUT).send_keys(random_name)
+        self.last_created_account_name = random_name  # Save for later check
 
     def click_store_new_asset_account(self):
         WebDriverWait(self.driver, 10).until(
@@ -74,7 +77,10 @@ class HomePage:
         return self.driver.find_element(*self.ALERT_SUCCESS).is_displayed()
 
     def is_create_new_asset_account_successful(self):
-        return self.i_see_success_alert()
+        # Check for success alert and that the account appears in the list
+        success_alert = self.i_see_success_alert()
+        account_in_list = self.is_account_in_list()
+        return success_alert and account_in_list
 
     def click_expense_accounts(self):
         WebDriverWait(self.driver, 10).until(
@@ -95,4 +101,27 @@ class HomePage:
         self.driver.find_element(*self.STORE_NEW__EXPENSE_ACCOUNT_BUTTON).click()
 
     def is_create_new_expense_account_successful(self):
-        return self.i_see_success_alert()
+        # Check for success alert and that the account appears in the list
+        success_alert = self.i_see_success_alert()
+        account_in_list = self.is_account_in_list()
+        return success_alert and account_in_list
+
+    def is_account_in_list(self, account_name=None):
+        """Check if the account name appears in the accounts table."""
+        if account_name is None:
+            account_name = self.last_created_account_name
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.SORTABLE_TABLE)
+        )
+        table = self.driver.find_element(*self.SORTABLE_TABLE)
+        return account_name in table.text
+    
+
+    def is_asset_account_in_list(self, account_name=None):
+        if account_name is None:
+            account_name = self.last_created_account_name
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.SORTABLE_TABLE)
+        )
+        table = self.driver.find_element(*self.SORTABLE_TABLE)
+        return account_name in table.text

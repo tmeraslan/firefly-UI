@@ -26,6 +26,7 @@ class TestCreateAssetAccount(SETUPTEST):
         home.insert_a_name_of_account()
         home.click_store_new_asset_account()
         self.assertTrue(home.is_create_new_asset_account_successful())
+        # self.assertTrue(home.is_asset_account_in_list())
         # self.assertTrue(home.i_see_success_alert())
 
 
