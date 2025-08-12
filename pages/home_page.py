@@ -42,9 +42,15 @@ class HomePage:
         return True
 
     def go_to_asset_accounts(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.ACCOUNTS_SIDEBAR_BUTTON)
+        )
         self.driver.find_element(*self.ACCOUNTS_SIDEBAR_BUTTON).click()
     
     def click_asset_accounts(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.ASSET_ACCOUNTS_BUTTON)
+        )    
         self.driver.find_element(*self.ASSET_ACCOUNTS_BUTTON).click()
 
     def click_create_new_asset_account(self):
