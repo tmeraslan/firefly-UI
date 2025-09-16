@@ -5,6 +5,7 @@ from config import EMAIL, PASSWORD
 from tests.test_setup import SETUPTEST
 
 
+
 class TestCreateAssetAccount(SETUPTEST):
 
 
