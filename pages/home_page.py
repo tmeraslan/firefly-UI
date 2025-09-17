@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import random
 import string
 
+
 class HomePage:
     DASHBOARD_SIDEBAR = (By.XPATH, "//span[contains(text(), 'Dashboard')]")
     FIREFLYIII_LOGO = (By.CLASS_NAME, "logo-lg")
@@ -24,7 +25,7 @@ class HomePage:
     CREATE_AN__EXPENSE_ACCOUNT_BUTTON = (By.CLASS_NAME, "btn-success")
     STORE_NEW__EXPENSE_ACCOUNT_BUTTON = (By.XPATH, "//button[contains(text(),'Store new expense account')]")
     SORTABLE_TABLE = (By.ID, "sortable-table")
-    expected_date = "August 1st, 2025 - August 31st, 2025"
+    expected_date = "September 1st, 2025 - September 30th, 2025"
 
 
     def __init__(self, driver):
