@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from tests.firefly_credentials import get_firefly_credentials
 from pages.home_page import HomePage
+import time
 
 class SignInPage:
 
@@ -16,7 +17,7 @@ class SignInPage:
     REMEMBER_CHECKBOX = (By.XPATH, "//input[@type='checkbox']")
     SUCCESS_TOAST = (By.ID, "toast-container")  # נניח שזו ההודעה שמופיעה
     USER_EMAIL_TOP_RIGHT = (By.XPATH, "//span[contains(@class, 'navbar-text') and contains(text(), '@')]")
-    expected_email = "tmeraslan1@gmail.com"
+    expected_email = "admin3@example.com"
     ALERT_INVALID_CREDENTIALS = (By.XPATH, "//div[contains(@class, 'alert-danger')]")
 
 
@@ -55,7 +56,9 @@ class SignInPage:
             checkbox = self.driver.find_element(*self.REMEMBER_CHECKBOX)
             if not checkbox.is_selected():
                 checkbox.click()
+
         self.driver.find_element(*self.SIGN_IN_BUTTON).click()
+
 
         return self  # Returns the same page to maintain page chaining.
 
