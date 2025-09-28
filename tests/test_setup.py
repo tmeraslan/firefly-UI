@@ -1,48 +1,57 @@
 # tests/test_setup.py
-import unittest, os, uuid, pathlib, shutil
+import tempfile
+import shutil
+import unittest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from pathlib import Path
+import os
+import time
 
 class SETUPTEST(unittest.TestCase):
     def setUp(self):
         options = Options()
 
-        # השתמש בבינארי שהותקן (לא Chrome for Testing)
-        options.binary_location = "/usr/bin/google-chrome"
-
-        # Headed כברירת מחדל
         if os.getenv("HEADLESS", "false").lower() == "true":
             options.add_argument("--headless=new")
-            options.add_argument("--window-size=1920,1080")
-        else:
-            options.add_argument("--start-maximized")
+            options.add_argument("--window-size=1366,900")
 
-        # דגלים ליציבות
         options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")  # משאיר לנו שליטה בפרופיל ב-/dev/shm
-        options.add_argument("--no-first-run")
-        options.add_argument("--no-default-browser-check")
-        options.add_argument("--password-store=basic")
-        options.add_argument("--use-mock-keychain")
+        options.add_argument("--disable-dev-shm-usage")
 
-        # >>> פרופיל ייחודי על tmpfs שתומך בנעילות
-        base = pathlib.Path("/dev/shm") / f"selenium-profiles-{os.getuid()}"
-        base.mkdir(parents=True, exist_ok=True)
-        self.user_data_dir = base / f"profile-{uuid.uuid4().hex}"
-        self.user_data_dir.mkdir(mode=0o700)
+        self.run_tmp = Path(tempfile.mkdtemp(prefix=f"chrome-run-{int(time.time())}-"))
+        self.user_data_dir = self.run_tmp / "profile"
+        self.cache_dir = self.run_tmp / "cache"
+        self.download_dir = self.run_tmp / "downloads"
+        for p in (self.user_data_dir, self.cache_dir, self.download_dir):
+            p.mkdir(parents=True, exist_ok=True)
+
         options.add_argument(f"--user-data-dir={self.user_data_dir}")
-        options.add_argument("--profile-directory=Profile 1")
+        options.add_argument(f"--disk-cache-dir={self.cache_dir}")
 
-        # תן ל-Selenium Manager להביא דרייבר תואם
-        self.driver = webdriver.Chrome(service=Service(), options=options)
+        prefs = {
+            "download.default_directory": str(self.download_dir.resolve()),
+            "download.prompt_for_download": False,
+            "download.directory_upgrade": True,
+            "safebrowsing.enabled": True,
+        }
+        options.add_experimental_option("prefs", prefs)
+
+        service = Service()  
+        self.driver = webdriver.Chrome(service=service, options=options)
+
+        if os.getenv("HEADLESS", "false").lower() != "true":
+            try:
+                self.driver.maximize_window()
+            except Exception:
+                pass
 
     def tearDown(self):
         try:
             self.driver.quit()
         finally:
-            shutil.rmtree(self.user_data_dir, ignore_errors=True)
-
+            shutil.rmtree(self.run_tmp, ignore_errors=True)
 
 
 

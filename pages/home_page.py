@@ -1,9 +1,10 @@
-# pages/sign_in_page.py
+# pages/home_page.py
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import random
 import string
+import time
 
 
 class HomePage:
@@ -26,6 +27,7 @@ class HomePage:
     STORE_NEW__EXPENSE_ACCOUNT_BUTTON = (By.XPATH, "//button[contains(text(),'Store new expense account')]")
     SORTABLE_TABLE = (By.ID, "sortable-table")
     expected_date = "September 1st, 2025 - September 30th, 2025"
+    Receipt_Inbox = (By.LINK_TEXT, "Receipt Inbox")
 
 
     def __init__(self, driver):
@@ -132,3 +134,10 @@ class HomePage:
         )
         table = self.driver.find_element(*self.SORTABLE_TABLE)
         return account_name in table.text
+    
+
+    def go_to_receipt_inbox(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.Receipt_Inbox)
+        )
+        self.driver.find_element(*self.Receipt_Inbox).click()
