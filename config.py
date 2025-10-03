@@ -2,7 +2,7 @@
 #config.py
 # URL = "http://127.0.0.1:8082/"
 # URL = "http://localhost:8080"
-URL = "http://108.130.117.131:8082"
+URL = "http://54.77.26.161:8082"
 
 EMAIL = "admin3@example.com"
 PASSWORD = "asdqwezxc123456!"
