@@ -7,6 +7,7 @@ import string
 import time
 
 
+
 class HomePage:
     DASHBOARD_SIDEBAR = (By.XPATH, "//span[contains(text(), 'Dashboard')]")
     FIREFLYIII_LOGO = (By.CLASS_NAME, "logo-lg")
