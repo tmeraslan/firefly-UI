@@ -23,7 +23,7 @@ class ReceiptPage:
     PARSED_PANEL_HEADING = (By.XPATH, "//div[contains(@class,'panel-heading') and normalize-space()='Parsed result']")
     ASSET_LABEL = (By.XPATH, "//label[contains(normalize-space(.), 'Asset Account')]")
     EXPENSE_LABEL = (By.XPATH, "//label[contains(normalize-space(.), 'Expense Account')]")
-    RAW_TEXT_TITLE = (By.XPATH, "//p/strong[normalize-space(.)='Raw Text (English)']")
+    RAW_TEXT_TITLE = (By.XPATH, "//p/strong[normalize-space(.)='Extracted Receipt Text']")
 
     ASSET_SELECT = (By.NAME, "asset_account_id")
     EXPENSE_SELECT = (By.NAME, "expense_account_id")
